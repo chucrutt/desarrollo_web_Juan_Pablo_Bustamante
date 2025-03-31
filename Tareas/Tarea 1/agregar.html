@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+        <a href="index.html">Inicio</a>
+        <a href="agregar.html">Agregar Actividad</a>
+        <a href="ver.html">Ver Actividades</a>
+        <a href="estadisticas.html">Estadísticas</a>
+    </nav>
+    <form>
+        <label for="region">Región:</label>
+        <select id="region" name="region" required>
+            <option value="">Seleccione una región</option>
+            <option value="region1">Arica y Parinacota</option>
+            <option value="region2">Tarapacá</option>
+            <option value="region3">Antofagasta</option>
+            <option value="region4">Atacama</option>
+            <option value="region5">Coquimbo</option>
+            <option value="region6">Valparaíso</option>
+            <option value="region7">Metropolitana</option>
+            <option value="region8">O'Higgins</option>
+            <option value="region9">Maule</option>
+            <option value="region10">Ñuble</option>
+            <option value="region11">Biobío</option>
+            <option value="region12">La Araucanía</option>
+            <option value="region13">Los Rios</option>
+            <option value="region14">Los Lagos</option>
+            <option value="region15">Aysén</option>
+            <option value="region16">Magallanes</option>
+        </select><br>
+        
+        <label for="comuna">Comuna:</label>
+        <select id="comuna" name="comuna" required>
+            <option value="">Seleccione una comuna</option>
+        </select><br>
+        
+        <label for="sector">Sector:</label>
+        <input type="text" id="sector" name="sector" maxlength="100" placeholder="Ingrese el sector (opcional)">
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>
