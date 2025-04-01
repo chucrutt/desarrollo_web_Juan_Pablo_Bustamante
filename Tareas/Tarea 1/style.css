@@ -3,8 +3,15 @@
     text-align: center;
 }
 #tabla-actividades-recientes {
-    margin: 50px;
+    margin-left: 80px;
 }
+#formulario {
+    margin-left: 80px;
+}
+input[type="text"] {
+    width: 250px;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
