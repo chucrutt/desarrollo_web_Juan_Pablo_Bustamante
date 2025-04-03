@@ -18,7 +18,8 @@
         <a href="estadisticas.html">Estadísticas</a>
     </nav>
     <form id="formulario">
-        <h2>¿Dónde?</h2>
+
+        <h3>¿Dónde?</h3>
 
         <label for="region">Región:</label>
         <select id="region" name="region" required>
@@ -31,7 +32,7 @@
         </select><br>
         
         <label for="sector">Sector:</label>
-        <input type="text" id="sector" name="sector" maxlength="100" placeholder="Ingrese el sector (opcional)">
+        <input type="text" id="sector" name="sector" maxlength="100" placeholder="Ingrese el sector">
 
         <h3>¿Quién organiza?</h3>
 
@@ -42,33 +43,67 @@
         <input type="email" id="email" name="email" maxlength="100" placeholder="Ingrese su correo" required><br>
 
         <label for="telefono">Número de Telefono:</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="ej.+569.12345678" pattern="^\+[\d]{1,3}\.[\d]{7,10}$" required><br>
+        <input type="tel" id="telefono" name="telefono" placeholder="ej.+569.12345678" pattern="^\+[\d]{1,3}\.[\d]{7,10}$"><br>
 
         <label>Contactar por:</label><br>
 
         <label for="whatsapp">Whatsapp</label>
         <input type="checkbox" id="whatsapp" name="redsocial" onclick="toggleInput('whatsapp-input')">
-        <input type="text" id="whatsapp-input" class="redsocial-input" placeholder="Escribe tu WhatsApp" style="display:none"><br>
+        <input type="text" id="whatsapp-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
 
         <label for="telegram">Telegram</label>
         <input type="checkbox" id="telegram" name="redsocial" onclick="toggleInput('telegram-input')">
-        <input type="text" id="telegram-input" class="redsocial-input" placeholder="Escribe tu Telegram" style="display:none"><br>
+        <input type="text" id="telegram-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
 
         <label for="x">X</label>
         <input type="checkbox" id="x" name="redsocial" onclick="toggleInput('x-input')">
-        <input type="text" id="x-input" class="redsocial-input" placeholder="Escribe tu cuenta de X" style="display:none"><br>
+        <input type="text" id="x-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
 
         <label for="instagram">Instagram</label>
         <input type="checkbox" id="instagram" name="redsocial" onclick="toggleInput('instagram-input')">
-        <input type="text" id="instagram-input" class="redsocial-input" placeholder="Escribe tu Instagram" style="display:none"><br>
+        <input type="text" id="instagram-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
 
         <label for="tiktok">TikTok</label>
         <input type="checkbox" id="tiktok" name="redsocial" onclick="toggleInput('tiktok-input')">
-        <input type="text" id="tiktok-input" class="redsocial-input" placeholder="Escribe tu TikTok" style="display:none"><br>
+        <input type="text" id="tiktok-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
 
         <label for="otra">Otra</label>
         <input type="checkbox" id="otra" name="redsocial" onclick="toggleInput('otra-input')">
-        <input type="text" id="otra-input" class="redsocial-input" placeholder="Escribe otra red social" style="display:none"><br>
+        <input type="text" id="otra-input" class="redsocial-input" placeholder="Escribe tu id de contacto o URL" style="display:none" minlength="4" maxlength="50"><br>
+
+        <h3>¿Cuándo y de qué trata?</h3>
+
+        <label for="fecha-hora-inicio">Fecha y hora de inicio</label>
+        <input type="datetime-local" id="fecha-hora-inicio" required><br>
+
+        <label for="fecha-hora-termino">Fecha y hora de termino</label>
+        <input type="datetime-local" id="fecha-hora-termino"><br>
+
+        <label for="descripción" style="display: block;">Descripción</label>
+        <textarea id="descripción" rows="10" cols="50"></textarea><br>
+
+        <label for="tema">Tema:</label>
+        <select id="tema" name="tema" required>
+            <option value="">Seleccione un tema</option>
+            <option value="musica">música</option>
+            <option value="deporte">deporte</option>
+            <option value="ciencias">ciencias</option>
+            <option value="religion">religión</option>
+            <option value="politica">política</option>
+            <option value="tecnologia">tecnología</option>
+            <option value="juegos">juegos</option>
+            <option value="baile">baile</option>
+            <option value="comida">comida</option>
+            <option value="otro">otro</option>
+        </select><br>
+
+        <input type="text" id="otroTema" name="otroTema" minlength="3" maxlength="15" style="display: none;" placeholder="Descripción del tema:">
+        
+        <label for="imagenes">Subir imágenes (1-5):</label>
+        <div id="contenedor-imagenes">
+            <input type="file" name="imagenes[]" accept="image/*" required>
+        </div>
+        <button type="button" id="agregar-imagen">Agregar otra foto</button>
 
 
     </form>
