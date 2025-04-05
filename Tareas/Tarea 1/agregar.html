@@ -97,16 +97,19 @@
             <option value="otro">otro</option>
         </select><br>
 
-        <input type="text" id="otroTema" name="otroTema" minlength="3" maxlength="15" style="display: none;" placeholder="Descripción del tema:">
+        <input type="text" id="otroTema" name="otroTema" minlength="3" maxlength="15" style="display: none;" placeholder="Descripción del tema:"> <br>
         
-        <label for="imagenes">Subir imágenes (1-5):</label>
+        <label for="imagen">Subir imágenes (1-5):</label>
         <div id="contenedor-imagenes">
-            <input type="file" name="imagenes[]" accept="image/*" required>
+            <input type="file" name="imagenes[]" id="imagen" accept="image/*" required>
         </div>
-        <button type="button" id="agregar-imagen">Agregar otra foto</button>
 
+        <button type="button" id="agregar-imagen">Agregar otra foto</button><br>
+        
+        <button type="button" onclick="mostrarConfirmacion()">Agregar esta actividad</button>
 
     </form>
+    <div id="mensaje-final" style="display: none; margin-top: 20px;"></div>
     <script src="script.js"></script>
 </body>
 </html>

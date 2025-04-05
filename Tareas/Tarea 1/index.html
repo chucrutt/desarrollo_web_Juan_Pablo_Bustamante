@@ -8,7 +8,7 @@
 </head>
 <body>
     <header id="mensaje-bienvenida">
-        <h1>Mensaje de Bienvenida</h1>
+        <h1>Bienvenido al gestor de actividades</h1>
     </header>
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
     <nav class="menu" id="menu">
@@ -18,6 +18,13 @@
         <a href="estadisticas.html">Estadísticas</a>
     </nav>
     <section id="tabla-actividades-recientes">
+        <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9999;">
+            <div style="position:relative;">
+                <img id="imagen-ampliada" src="https://via.placeholder.com/800x600" width="800" height="600" alt="Imagen ampliada">
+                <button onclick="cerrarImagen()" style="position:absolute; top:10px; right:10px; padding:5px 10px;">Cerrar</button>
+            </div>
+        </div>
+        
         <h2>Actividades Recientes</h2>
         <table>
             <tr>
@@ -27,6 +34,46 @@
                 <th>Sector</th>
                 <th>Tema</th>
                 <th>Foto</th>
+            </tr>
+            <tr>
+                <td>2025-03-28 12:00</td>
+                <td>2025-03-28 14:00</td>
+                <td>Santiago</td>
+                <td>Beauchef 850, terraza</td>
+                <td>Escuela de boxeo</td>
+                <td><img src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/zk1emf45sohwctce0hhg" width="320" height="240" alt="Escuela de boxeo en Santiago" onclick="mostrarImagen(this.src)"></td>
+            </tr>
+            <tr>
+                <td>2025-03-29 19:00</td>
+                <td>2025-03-29 20:00</td>
+                <td>Ñuñoa</td>
+                <td>Plaza</td>
+                <td>Cómo deshidratar fruta</td>
+                <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUmRCPzeN_YaMTbY_VG39oa-w7xz68Z3MGA&s" width="320" height="240" alt="Deshidratación de frutas" onclick="mostrarImagen(this.src)"></td>
+            </tr>
+            <tr>
+                <td>2022-03-30 18:00</td>
+                <td>-</td>
+                <td>Santiago</td>
+                <td>Parque O'Higgins</td>
+                <td>Música urbana</td>
+                <td><img src="https://assets.tvu.cl/2019/01/musica-urbana-en-concepcion.jpg" width="320" height="240" alt="Evento de música urbana" onclick="mostrarImagen(this.src)"></td>
+            </tr>
+            <tr>
+                <td>2025-04-20 20:00</td>
+                <td>2025-04-20 23:00</td>
+                <td>Santiago Centro</td>
+                <td>Plaza de Armas</td>
+                <td>baile</td>
+                <td><img src="https://www.shutterstock.com/image-vector/romantic-couple-dancing-people-love-600nw-2422867801.jpg" width="320" height="240" alt="Pareja bailando en la Plaza de Armas" onclick="mostrarImagen(this.src)"></td>
+            </tr>
+            <tr>
+                <td>2025-04-25 14:00</td>
+                <td>2025-04-25 16:30</td>
+                <td>Ñuñoa</td>
+                <td>Biblioteca Pública</td>
+                <td>tecnología</td>
+                <td><img src="https://gaceta.cch.unam.mx/sites/default/files/styles/imagen_articulos_1920x1080/public/2022-12/pag_26a.png?h=bb5e021e&itok=DBjHer4V" width="320" height="240" alt="Conferencia de tecnología en Ñuñoa" onclick="mostrarImagen(this.src)"></td>
             </tr>
         </table>
     </section>

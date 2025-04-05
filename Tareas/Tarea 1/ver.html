@@ -14,6 +14,97 @@
         <a href="ver.html">Ver Actividades</a>
         <a href="estadisticas.html">Estadísticas</a>
     </nav>
+    <section id="tabla-actividades">
+        <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9999;">
+            <div style="position:relative;">
+                <img id="imagen-ampliada" src="https://via.placeholder.com/800x600" width="800" height="600" alt="Imagen ampliada">
+                <button onclick="cerrarImagen()" style="position:absolute; top:10px; right:10px; padding:5px 10px;">Cerrar</button>
+            </div>
+        </div>
+        
+        <h2 id="mensaje-listado-actividades">Listado de Actividades</h2>
+        <table>
+            <tr>
+                <th>Inicio</th>
+                <th>Término</th>
+                <th>Comuna</th>
+                <th>Sector</th>
+                <th>Tema</th>
+                <th>Nombre Organizador</th>
+                <th>Total de Fotos</th>
+            </tr>
+            <tr>
+                <td>2025-03-28 12:00</td>
+                <td>2025-03-28 14:00</td>
+                <td>Santiago</td>
+                <td>Beauchef 850, terraza</td>
+                <td>Escuela de boxeo</td>
+                <td>Valentina Ríos</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <img src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/zk1emf45sohwctce0hhg" width="320" height="240" alt="Imagen de escuela de boxeo" onclick="mostrarImagen(this.src)">
+                        <img src="https://portaluchile.uchile.cl//.imaging/default/dam/imagenes/Ingenieria/subportadas/subportada-campus/Minerva.jpg/jcr:content.jpg" width="320" height="240" alt="Imagen de la Universidad de Chile" onclick="mostrarImagen(this.src)">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-03-29 19:00</td>
+                <td>2025-03-29 20:00</td>
+                <td>Ñuñoa</td>
+                <td>Plaza</td>
+                <td>Cómo deshidratar fruta</td>
+                <td>Tomás Herrera</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUmRCPzeN_YaMTbY_VG39oa-w7xz68Z3MGA&s" width="320" height="240" alt="Imagen de frutas deshidratadas" onclick="mostrarImagen(this.src)">
+                        <img src="https://cdn.wikifarmer.com/images/detailed/2023/09/Como-deshidratar-frutas-tropicales-para-obtener-aperitivos-naturales-y-saludables.jpg" width="320" height="240" alt="bolsas de frutas deshidratadas" onclick="mostrarImagen(this.src)">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2022-03-30 18:00</td>
+                <td>-</td>
+                <td>Santiago</td>
+                <td>Parque O'Higgins</td>
+                <td>Música urbana</td>
+                <td>Camila Soto</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <img src="https://assets.tvu.cl/2019/01/musica-urbana-en-concepcion.jpg" width="320" height="240" alt="Imagen de música urbana" onclick="mostrarImagen(this.src)">
+                        <img src="https://static.emol.cl/emol50/Fotos/2023/09/20/file_20230920120517.jpg" width="320" height="240" alt="parque o'higgins" onclick="mostrarImagen(this.src)">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-04-20 20:00</td>
+                <td>2025-04-20 23:00</td>
+                <td>Santiago Centro</td>
+                <td>Plaza de Armas</td>
+                <td>baile</td>
+                <td>Felipe Morales</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <img src="https://www.shutterstock.com/image-vector/romantic-couple-dancing-people-love-600nw-2422867801.jpg" width="320" height="240" alt="Imagen de baile" onclick="mostrarImagen(this.src)">
+                        <img src="https://cdn.getyourguide.com/img/location/5b79b0d4f2c29.jpeg/99.jpg" width="320" height="240" alt="Plaza de Armas en Santiago" onclick="mostrarImagen(this.src)">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-04-25 14:00</td>
+                <td>2025-04-25 16:30</td>
+                <td>Ñuñoa</td>
+                <td>Biblioteca Pública</td>
+                <td>tecnología</td>
+                <td>Antonia Fuentes</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <img src="https://gaceta.cch.unam.mx/sites/default/files/styles/imagen_articulos_1920x1080/public/2022-12/pag_26a.png?h=bb5e021e&itok=DBjHer4V" width="320" height="240" alt="Imagen sobre tecnología" onclick="mostrarImagen(this.src)">
+                        <img src="https://nunoa.cl/wp-content/uploads/2024/08/2-1.jpg" width="320" height="240" alt="Imagen de biblioteca pública en Ñuñoa" onclick="mostrarImagen(this.src)">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </section>
     <script src="script.js"></script>
 </body>
 </html>

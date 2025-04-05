@@ -195,3 +195,54 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function mostrarConfirmacion() {
+    const form = document.getElementById('formulario');
+    if (form.checkValidity()) {
+        const contenedor = document.getElementById('mensaje-final');
+        contenedor.innerHTML = `
+            <p>¿Está seguro que desea agregar esta actividad?</p>
+            <button onclick="confirmarEnvio()">Sí, estoy seguro</button>
+            <button onclick="cancelarEnvio()">No, no estoy seguro, quiero volver al formulario</button>
+        `;
+        contenedor.style.display = 'block';
+    } else {
+        form.reportValidity();
+    }
+}
+
+function confirmarEnvio() {
+    const contenedor = document.getElementById('mensaje-final');
+    contenedor.innerHTML = `
+        <p>Hemos recibido su información, muchas gracias y suerte en su actividad.</p>
+        <button onclick="volverAPortada()">Volver a la portada</button>
+    `;
+}
+
+function cancelarEnvio() {
+    const contenedor = document.getElementById('mensaje-final');
+    contenedor.style.display = 'none';
+}
+
+function volverAPortada() {
+    window.location.href = 'index.html';
+}
+
+function mostrarImagen(src) {
+    const modal = document.getElementById('modal');
+    const imagen = document.getElementById('imagen-ampliada');
+
+    if (src.includes("placeholder.com/320x240")) {
+        src = src.replace("320x240", "800x600");
+    }
+
+    imagen.src = src;
+    modal.style.display = 'flex';
+}
+
+function cerrarImagen() {
+    const modal = document.getElementById('modal');
+    const imagen = document.getElementById('imagen-ampliada');
+    modal.style.display = 'none';
+    imagen.src = '';
+}
+
