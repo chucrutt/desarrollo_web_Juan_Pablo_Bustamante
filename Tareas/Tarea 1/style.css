@@ -1,13 +1,21 @@
-#mensaje-bienvenida {
-    justify-content: center;
-    text-align: center;
-}   
-#mensaje-listado-actividades{
-    justify-content: center;
+#graficos {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
     text-align: center;
 }
-#tabla-actividades-recientes {
-    margin-left: 80px;
+
+section img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+h1 {
+    text-align: center;
 }
 table {
     width: 100%;
