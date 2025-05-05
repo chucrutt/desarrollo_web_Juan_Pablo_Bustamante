@@ -245,4 +245,3 @@ function cerrarImagen() {
     modal.style.display = 'none';
     imagen.src = '';
 }
-
