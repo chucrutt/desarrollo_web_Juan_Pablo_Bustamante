@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/agregarStyle.css') }}">
+{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+ <form action="#" method="POST">
+    <h2>Informa de una nueva actividad</h2>
+
+    <h3>¿Dónde?</h3>
+
+    <label for="region">Región</label>
+    <select>
+        <option value="">-- Selecciona una región --</option>
+    </select>
+
+    <label for="comuna">Comuna</label>
+    <select>
+        <option value="">-- Selecciona una comuna --</option>
+    </select>
+
+    <label for="sector">Sector</label>
+    <input type="text" id="sector" name="sector">
+
+    <h3>¿Quién organiza?</h3>
+
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre">
+
+    <label for="email">Correo electrónico</label>
+    <input type="email" id="email" name="email">
+
+    <label for="telefono">Teléfono</label>
+    <input type="tel" id="telefono" name="telefono">
+
+    <div class="checkbox-form">
+
+        <h4>Contactar por:</h4>
+
+        <label for="whatsapp">Whatsapp</label>
+        <input type="checkbox" name="whatsapp" value="whatsapp"><br>
+        
+        <label for="telegram">Telegram</label>
+        <input type="checkbox" name="telegram" value="telegram"><br>
+
+        <label for="x">X</label>
+        <input type="checkbox" name="x" value="x"><br>
+
+        <label for="instagram">Instagram</label>
+        <input type="checkbox" name="instagram" value="instagram"><br>
+
+        <label for="tiktok">TikTok</label>
+        <input type="checkbox" name="tiktok" value="tiktok"><br>
+
+        <label for="otro">Otro</label>
+        <input type="checkbox" name="otro" value="otro"><br>
+
+    </div>
+
+    <h3>¿Cuándo y de qué trata?</h3>
+
+    <label for="fecha-inicio">Día y hora de inicio</label>
+    <input type="datetime-local" id="fecha-inicio" name="fecha-inicio" value="2018-06-12T19:30"/>
+
+    <label for="fecha-termino">Día y hora de termino</label>
+    <input type="datetime-local" id="fecha-termino" name="fecha-termino" value="2018-06-12T19:30"/>
+
+    <label for="descripcion">Descripción</label>
+    <textarea name="descripcion" rows="10" cols="50"></textarea>
+
+    <label for="tema">Tema</label>
+    <select>
+        <option value="">-- Selecciona un tema --</option>
+        <option value="musica">Música</option>
+        <option value="deporte">Deporte</option>
+        <option value="ciencias">Ciencias</option>
+        <option value="religion">Religión</option>
+        <option value="politica">Política</option>
+        <option value="tecnologia">Tecnología</option>
+        <option value="juegos">Juegos</option>
+        <option value="baile">Baile</option>
+        <option value="comida">Comida</option>
+        <option value="otro">Otro</option>
+    </select>
+
+    <label for="imagen">Subir imagen</label>
+    <input type="file" name="imagen">
+
+    <button type="submit">Enviar</button>
+    
+  </form>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

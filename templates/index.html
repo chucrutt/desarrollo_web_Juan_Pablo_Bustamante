@@ -1,7 +1,41 @@
 {% extends 'base.html' %}
-Tarea 2
-{% block head %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/indexStyle.css') }}">
 {% endblock %}
+
+{% block head %}{% endblock %}
+
 {% block body %}
-<h1>Hola</h1> 
+<div class="contenido">
+    <header id="mensaje-bienvenida">
+        <h1>Bienvenido al gestor de actividades</h1>
+    </header>
+
+    <div class="actividades-recientes">
+        <table>
+            <caption>Actividades Recientes</caption>
+            <thead>
+                <th>Inicio</th>
+                <th>Término</th>
+                <th>Comuna</th>
+                <th>Sector</th>
+                <th>Tema</th>
+                <th>Foto</th>
+            </thead>
+            <tr>
+                <td>2025-03-28 12:00</td>
+                <td>2025-03-28 14:00</td>
+                <td>Santiago</td>
+                <td>Beauchef 850, terraza</td>
+                <td>Escuela de boxeo</td>
+                <td><img src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/zk1emf45sohwctce0hhg" width="320" height="240" alt="Escuela de boxeo en Santiago"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script lang="javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}

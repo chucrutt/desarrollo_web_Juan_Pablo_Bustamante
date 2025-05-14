@@ -1,0 +1,50 @@
+/* === Tabla de actividades recientes === */
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.actividades-recientes {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.actividades-recientes table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.actividades-recientes caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #ddd;
+}
+
+.actividades-recientes th,
+.actividades-recientes td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: top;
+}
+
+.actividades-recientes thead {
+  background-color: #f0f0f0;
+}
+
+.actividades-recientes img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}

@@ -1,6 +1,18 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum
-from sqlalchemy.orm import relationship
-from db import Base
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Enum
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+
+DB_NAME = "tarea2"
+DB_USERNAME = "admin"
+DB_PASSWORD = "password"
+DB_HOST = "localhost"
+DB_PORT = 3306
+
+DATABASE_URL = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+engine = create_engine(DATABASE_URL, echo=False, future=True)
+SessionLocal = sessionmaker(bind=engine)
+
+Base = declarative_base()
 
 # --- Models ---
 
@@ -77,3 +89,7 @@ class ActividadTema(Base):
     actividad = relationship("Actividad", back_populates="temas")
 
 # --- Database Functions ---
+
+# --- To create tables if not exist ---
+def init_db():
+    Base.metadata.create_all(engine)

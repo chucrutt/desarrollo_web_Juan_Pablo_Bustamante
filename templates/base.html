@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/baseStyle.css') }}">
+    <title> Tarea 2</title>
+    {% block stylesheet %}{% endblock %}
     {% block head %}{% endblock %}
 </head>
 <body>
+    <nav class="menu">
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('agregar') }}">Agregar Actividad</a>
+        <a href="{{ url_for('actividades') }}">Ver Actividades</a>
+        <a href="{{ url_for('estadisticas') }}">Estadísticas</a>
+    </nav>
     {% block body %}{% endblock %}
+    {% block javascript %}{% endblock %}
 </body>
 </html>

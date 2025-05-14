@@ -1,0 +1,61 @@
+/* contenedor del formulario */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* etiquetas y campos */
+form label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd0d5;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* sección de checkboxes */
+
+.checkbox-form label {
+  display: inline-block;
+  margin-right: 0px;
+  font-weight: normal;
+}
+
+.checkbox-form input[type="checkbox"] {
+  vertical-align: middle;
+}
+
+/* botón de envío */
+form button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 25px;
+  background: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+form button[type="submit"]:hover {
+  background: #0056b3;
+}
