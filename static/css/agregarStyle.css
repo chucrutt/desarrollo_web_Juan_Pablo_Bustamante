@@ -41,7 +41,7 @@ form select {
 }
 
 /* botón de envío */
-form button[type="submit"] {
+#submit-btn {
   display: block;
   width: 100%;
   padding: 12px;
@@ -56,6 +56,28 @@ form button[type="submit"] {
   transition: background 0.2s ease-in-out;
 }
 
-form button[type="submit"]:hover {
+#submit-btn:hover {
   background: #0056b3;
+}
+
+/*  Validation Box */
+
+#val-box {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#val-box h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+#val-list {
+    padding-left: 20px;
+    margin: 0;
+    list-style-type: disc;
+    color: #a94442;
 }

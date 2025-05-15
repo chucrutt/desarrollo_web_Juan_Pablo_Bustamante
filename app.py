@@ -1,26 +1,25 @@
 from flask import Flask, request, render_template, redirect, url_for, session
 #from utils.validations import validate_login_user, validate_register_user, validate_confession
-#from sql import db
+from sql import db
 #from werkzeug.utils import secure_filename
 #import hashlib
 #import filetype
 #import os
 
-#UPLOAD_FOLDER = 'static/uploads'
-
 app = Flask(__name__)
 
-#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-@app.route('/inicio')
+@app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/agregar')
+@app.route('/agregar_actividad', methods=["GET", "POST"])
 def agregar():
-    return render_template('agregar.html')
+    regiones = db.get_regiones()
+    comunas = db.get_comunas()
+    return render_template('agregar.html', regiones=regiones, comunas=comunas)
 
-@app.route('/actividades')
+
+@app.route('/actividades_recientes')
 def actividades():
     return render_template('actividades.html')
 

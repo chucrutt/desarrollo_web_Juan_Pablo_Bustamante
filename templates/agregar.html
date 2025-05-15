@@ -7,91 +7,124 @@
 {% block head %}{% endblock %}
 
 {% block body %}
- <form action="#" method="POST">
-    <h2>Informa de una nueva actividad</h2>
+<div class="main-container">
+    <form name="myForm" method="post" enctype="multipart/form-data">
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
+        <h2>Informa de una nueva actividad</h2>
 
-    <h3>¿Dónde?</h3>
+        <h3>¿Dónde?</h3>
 
-    <label for="region">Región</label>
-    <select>
-        <option value="">-- Selecciona una región --</option>
-    </select>
+        <label for="region">Región</label>
+        <select name="region_id" id="select-region" required>
+            <option value="">Selecciona una región</option>
+            {% for region in regiones %}
+                <option value="{{ region.id }}">{{ region.nombre }}</option>
+            {% endfor %}
+        </select>
 
-    <label for="comuna">Comuna</label>
-    <select>
-        <option value="">-- Selecciona una comuna --</option>
-    </select>
+        <label for="comuna">Comuna</label>
+        <select name="comuna_id" id="select-comuna" required>
+            <option value="">Selecciona una comuna</option>
+            {% for comuna in comunas %}
+                <option value="{{ comuna.id }}" data-region-id="{{ comuna.region_id }}">{{ comuna.nombre }}</option>
+            {% endfor %}
+        </select>
 
-    <label for="sector">Sector</label>
-    <input type="text" id="sector" name="sector">
+        <label for="sector">Sector</label>
+        <input type="text" id="sector" name="sector" maxlength="100">
 
-    <h3>¿Quién organiza?</h3>
+        <h3>¿Quién organiza?</h3>
 
-    <label for="nombre">Nombre</label>
-    <input type="text" id="nombre" name="nombre">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" maxlength="200" required>
 
-    <label for="email">Correo electrónico</label>
-    <input type="email" id="email" name="email">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" maxlength="100" placeholder="ejemplo@correo.com" required>
 
-    <label for="telefono">Teléfono</label>
-    <input type="tel" id="telefono" name="telefono">
+        <label for="phone">Número de celular</label>
+        <input type="tel" name="phone" id="phone" minlength="8" placeholder="+NNN.NNNNNNNN">
 
-    <div class="checkbox-form">
+        <div class="checkbox-form">
 
-        <h4>Contactar por:</h4>
+            <h4>Contactar por:</h4>
 
-        <label for="whatsapp">Whatsapp</label>
-        <input type="checkbox" name="whatsapp" value="whatsapp"><br>
+            <label for="whatsapp">Whatsapp</label>
+            <input type="checkbox" name="contacto" value="whatsapp" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-whatsapp" style="display:none;">
+                <input type="text" name="whatsapp_contact" placeholder="Contacto Whatsapp" minlength="4" maxlength="50">
+            </div>
+            
+            <label for="telegram">Telegram</label>
+            <input type="checkbox" name="telegram" value="telegram" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-telegram" style="display:none;">
+                <input type="text" name="telegram_contact" placeholder="Contacto Telegram" minlength="4" maxlength="50">
+            </div>
+
+            <label for="x">X</label>
+            <input type="checkbox" name="x" value="x" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-x" style="display:none;">
+                <input type="text" name="x_contact" placeholder="Contacto X" minlength="4" maxlength="50">
+            </div>
+
+            <label for="instagram">Instagram</label>
+            <input type="checkbox" name="instagram" value="instagram" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-instagram" style="display:none;">
+                <input type="text" name="instagram_contact" placeholder="Contacto Instagram" minlength="4" maxlength="50">
+            </div>
+
+            <label for="tiktok">TikTok</label>
+            <input type="checkbox" name="tiktok" value="tiktok" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-tiktok" style="display:none;">
+                <input type="text" name="tiktok_contact" placeholder="Contacto TikTok" minlength="4" maxlength="50">
+            </div>
+
+            <label for="otro">Otro</label>
+            <input type="checkbox" name="otro" value="otro" class="contact-checkbox"><br>
+            <div class="contact-input" id="input-otro" style="display:none;">
+                <input type="text" name="otro_contact" placeholder="Contacto" minlength="4" maxlength="50">
+            </div>
+
+        </div>
+
+        <h3>¿Cuándo y de qué trata?</h3>
+
+        <label for="fecha-inicio">Día y hora de inicio</label>
+        <input type="datetime-local" id="fecha-inicio" name="fecha-inicio" value="2018-06-12T19:30" required>
+
+        <label for="fecha-termino">Día y hora de termino</label>
+        <input type="datetime-local" id="fecha-termino" name="fecha-termino" value="2018-06-12T19:30">
+
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" rows="10" cols="50"></textarea>
+
+        <label for="tema">Tema</label>
+        <select name="select-tema" id="select-tema" required>
+            <option value="">-- Selecciona un tema --</option>
+            <option value="musica">Música</option>
+            <option value="deporte">Deporte</option>
+            <option value="ciencias">Ciencias</option>
+            <option value="religion">Religión</option>
+            <option value="politica">Política</option>
+            <option value="tecnologia">Tecnología</option>
+            <option value="juegos">Juegos</option>
+            <option value="baile">Baile</option>
+            <option value="comida">Comida</option>
+            <option value="otro">Otro</option>
+        </select>
+
+        <label for="files">Subir imagen</label>
+        <input type="file" name="files" id="files" multiple accept="image/*,.pdf" required>
+
+        <button id="submit-btn" type="button">Enviar</button>
         
-        <label for="telegram">Telegram</label>
-        <input type="checkbox" name="telegram" value="telegram"><br>
-
-        <label for="x">X</label>
-        <input type="checkbox" name="x" value="x"><br>
-
-        <label for="instagram">Instagram</label>
-        <input type="checkbox" name="instagram" value="instagram"><br>
-
-        <label for="tiktok">TikTok</label>
-        <input type="checkbox" name="tiktok" value="tiktok"><br>
-
-        <label for="otro">Otro</label>
-        <input type="checkbox" name="otro" value="otro"><br>
-
-    </div>
-
-    <h3>¿Cuándo y de qué trata?</h3>
-
-    <label for="fecha-inicio">Día y hora de inicio</label>
-    <input type="datetime-local" id="fecha-inicio" name="fecha-inicio" value="2018-06-12T19:30"/>
-
-    <label for="fecha-termino">Día y hora de termino</label>
-    <input type="datetime-local" id="fecha-termino" name="fecha-termino" value="2018-06-12T19:30"/>
-
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" rows="10" cols="50"></textarea>
-
-    <label for="tema">Tema</label>
-    <select>
-        <option value="">-- Selecciona un tema --</option>
-        <option value="musica">Música</option>
-        <option value="deporte">Deporte</option>
-        <option value="ciencias">Ciencias</option>
-        <option value="religion">Religión</option>
-        <option value="politica">Política</option>
-        <option value="tecnologia">Tecnología</option>
-        <option value="juegos">Juegos</option>
-        <option value="baile">Baile</option>
-        <option value="comida">Comida</option>
-        <option value="otro">Otro</option>
-    </select>
-
-    <label for="imagen">Subir imagen</label>
-    <input type="file" name="imagen">
-
-    <button type="submit">Enviar</button>
-    
-  </form>
+    </form>
+</div>
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+<script src="{{ url_for('static', filename='js/agregarScript.js') }}"></script>
+{% endblock %}

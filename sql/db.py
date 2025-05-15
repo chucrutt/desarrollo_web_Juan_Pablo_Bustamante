@@ -89,6 +89,17 @@ class ActividadTema(Base):
     actividad = relationship("Actividad", back_populates="temas")
 
 # --- Database Functions ---
+def get_regiones():
+    session = SessionLocal()
+    regiones = session.query(Region).order_by(Region.nombre).all()
+    session.close()
+    return regiones
+
+def get_comunas():
+    session = SessionLocal()
+    comunas = session.query(Comuna).order_by(Comuna.nombre).all()
+    session.close()
+    return comunas
 
 # --- To create tables if not exist ---
 def init_db():
