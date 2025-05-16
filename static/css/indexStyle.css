@@ -48,3 +48,11 @@ caption {
   height: auto;
   border-radius: 4px;
 }
+
+.flash-box {
+    background-color: #ddffdd;
+    border-left: 5px solid #4CAF50;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}

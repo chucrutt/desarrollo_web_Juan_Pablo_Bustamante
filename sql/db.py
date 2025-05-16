@@ -7,8 +7,8 @@ from werkzeug.utils import secure_filename
 STATIC_UPLOADS_PATH = os.path.join("static", "uploads")
 
 DB_NAME = "tarea2"
-DB_USERNAME = "admin"
-DB_PASSWORD = "password"
+DB_USERNAME = "cc5002"
+DB_PASSWORD = "programacionweb"
 DB_HOST = "localhost"
 DB_PORT = 3306
 
@@ -127,7 +127,7 @@ def get_comunas():
     session.close()
     return comunas
 
-def create_actividad(nombre, email, celular, region, comuna_id, sector, temas, otro_tema, dia_hora_inicio, dia_hora_termino, archivos, descripcion):
+def create_actividad(nombre, email, celular, region, comuna_id, sector, temas, otro_tema, dia_hora_inicio, dia_hora_termino, archivos, descripcion, contactos):
     session = SessionLocal()
 
     actividad = Actividad(
@@ -151,7 +151,7 @@ def create_actividad(nombre, email, celular, region, comuna_id, sector, temas, o
             archivo.save(ruta_local)
 
             foto = Foto(
-                ruta_archivo=f"uploads/{filename}",  # ✅ Ruta relativa a static/
+                ruta_archivo=f"uploads/{filename}",
                 nombre_archivo=filename,
                 actividad_id=actividad.id
             )
@@ -172,6 +172,21 @@ def create_actividad(nombre, email, celular, region, comuna_id, sector, temas, o
             )
         session.add(actividad_tema)
 
+    for nombre_red, identificador in contactos.items():
+        if nombre_red == "x":
+            nombre_enum = "X"
+        elif nombre_red == "otro":
+            nombre_enum = "otra"
+        else:
+            nombre_enum = nombre_red
+
+        contacto = ContactarPor(
+            nombre=nombre_enum,
+            identificador=identificador,
+            actividad_id=actividad.id
+        )
+        session.add(contacto)
+
     session.commit()
     session.close()
 
@@ -185,6 +200,22 @@ def detalle_actividad(id):
     ).filter_by(id=id).first()
     session.close()
     return actividad
+
+def get_actividades_paginadas(page=1, per_page=5):
+    session = SessionLocal()
+    query = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.temas),
+        joinedload(Actividad.fotos)
+    ).order_by(Actividad.id.desc())
+
+    total = query.count()
+    actividades = query.limit(per_page).offset((page - 1) * per_page).all()
+    session.close()
+
+    # Devuelvo actividades, total, página actual y total de páginas
+    total_pages = (total + per_page - 1) // per_page
+    return actividades, total, page, total_pages
 
 
 # --- To create tables if not exist ---

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detalleStyle.css') }}">
+{% endblock %}
+
 {% block body %}
 <div class="contenido">
     <h2>Detalles de la Actividad</h2>
@@ -19,9 +23,16 @@
                 {% endfor %}
             </ul>
         </li>
+        <li><strong>Contactos:</strong>
+            <ul>
+                {% for contacto in actividad.contactos %}
+                    <li>{{ contacto.nombre }}: {{ contacto.identificador }}</li>
+                {% endfor %}
+            </ul>
+        </li>
         <li><strong>Fotos:</strong><br>
             {% for foto in actividad.fotos %}
-                <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" width="320" height="240" style="margin: 5px;">
+                <img alt="Foto de {{ actividad.nombre }} - {{ loop.index }}" class="foto-detalle" src="{{ url_for('static', filename=foto.ruta_archivo) }}" width="320" height="240" style="margin: 5px;">
             {% endfor %}
         </li>
     </ul>
@@ -29,4 +40,16 @@
     <a href="{{ url_for('actividades') }}"><button>Volver al listado</button></a>
     <a href="{{ url_for('index') }}"><button>Volver a la portada</button></a>
 </div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" id="close-modal">&times;</button>
+        <img id="modal-img" src="" alt="Foto ampliada">
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/detalleScript.js') }}"></script>
 {% endblock %}

@@ -112,7 +112,7 @@ const validateForm = () => {
         setInvalidInput("Número invalido");
     }
     if (!validateCheckboxes()) {
-        setInvalidInput("CheckBoxes (máx. 5)");
+        setInvalidInput("Máximo de 5 contactos");
     }
     if (!validateDates(fechaInicioStr, fechaTerminoStr)) {
         setInvalidInput("fecha de termino debe ser mayor a la fecha de inicio")
@@ -164,24 +164,8 @@ const validateForm = () => {
         confirmButton.innerText = "Sí, estoy seguro";
         confirmButton.style.marginRight = "10px";
         confirmButton.addEventListener("click", () => {
-            validationMessageElem.innerText = "Hemos recibido su información, muchas gracias y suerte en su actividad.";
-            validationListElem.textContent = "";
-
-            // Cambiar estilos a éxito
-            validationBox.style.backgroundColor = "#ddffdd";
-            validationBox.style.borderLeftColor = "#4CAF50";
-
             // submit formulario a flask
             myForm.submit();
-
-            // Botón para volver a la portada
-            let backToHomeButton = document.createElement("button");
-            backToHomeButton.innerText = "Volver a la portada";
-            backToHomeButton.addEventListener("click", () => {
-                window.location.href = "/";
-            });
-
-            validationListElem.appendChild(backToHomeButton);
         });
 
         // Botón "No, quiero volver"

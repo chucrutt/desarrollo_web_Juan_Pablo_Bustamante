@@ -1,7 +1,9 @@
 import re
+import html
 from datetime import datetime
 
 def formValid(nombre, email, telefono, region, comuna, sector, temas, otro_tema, fecha_inicio, fecha_termino, archivos, errores):
+
     if not nombre or len(nombre) > 200:
         errores += "Nombre inválido "
 

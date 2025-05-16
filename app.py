@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, flash, abort, request, render_template, redirect, url_for, session
 from sql import db
 from utils import validations
 #from werkzeug.utils import secure_filename
@@ -7,6 +7,7 @@ from utils import validations
 #import os
 
 app = Flask(__name__)
+app.secret_key = "programacionweb"
 
 @app.route('/')
 def index():
@@ -30,10 +31,21 @@ def agregar():
         fecha_termino = request.form.get('fecha-termino')
         archivos = request.files.getlist('files')
         descripcion = request.form.get('descripcion', '').strip()
+        contactos = {
+            'whatsapp': request.form.get('whatsapp_contact', '').strip(),
+            'telegram': request.form.get('telegram_contact', '').strip(),
+            'x': request.form.get('x_contact', '').strip(),
+            'instagram': request.form.get('instagram_contact', '').strip(),
+            'tiktok': request.form.get('tiktok_contact', '').strip(),
+            'otro': request.form.get('otro_contact', '').strip()
+        }
+        contactos = {k: v for k, v in contactos.items() if v}
+
         errores = "Flask Error: "
         errores = validations.formValid(nombre, email, telefono, region, comuna, sector, temas, otro_tema, fecha_inicio, fecha_termino, archivos, errores)
         if (errores == "Flask Error: "):
-            db.create_actividad(nombre, email, telefono, region, comuna, sector, temas, otro_tema, fecha_inicio, fecha_termino, archivos, descripcion)
+            db.create_actividad(nombre, email, telefono, region, comuna, sector, temas, otro_tema, fecha_inicio, fecha_termino, archivos, descripcion, contactos)
+            flash("Actividad registrada con éxito")
             return redirect('/')
         else:
             return render_template('agregar.html', regiones=regiones, comunas=comunas, errores=errores)
@@ -44,13 +56,20 @@ def agregar():
 
 @app.route('/actividad')
 def actividades():
-    actividades = db.get_actividades()
-    return render_template('actividades.html', actividades=actividades)
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    actividades, total, page, total_pages = db.get_actividades_paginadas(page, per_page)
+    return render_template('actividades.html', actividades=actividades, page=page, total_pages=total_pages)
 
 @app.route('/actividad/<int:id>')
 def detalle_actividad(id):
+    if id < 1:
+        abort(400)
     actividad = db.detalle_actividad(id)
+    if not actividad:
+        abort(404)
     return render_template('detalle.html', actividad=actividad)
+
 
 @app.route('/estadisticas')
 def estadisticas():

@@ -7,6 +7,18 @@
 {% block head %}{% endblock %}
 
 {% block body %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-box">
+      {% for msg in messages %}
+        <p>{{ msg }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
 <div class="contenido">
     <header id="mensaje-bienvenida">
         <h1>Bienvenido al gestor de actividades</h1>
@@ -16,12 +28,14 @@
         <table>
             <caption>Actividades Recientes</caption>
             <thead>
-                <th>Inicio</th>
-                <th>Término</th>
-                <th>Comuna</th>
-                <th>Sector</th>
-                <th>Tema</th>
-                <th>Foto</th>
+                <tr>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th>Comuna</th>
+                    <th>Sector</th>
+                    <th>Tema</th>
+                    <th>Foto</th>
+                </tr>
             </thead>
             <tbody>
                 {% for actividad in actividades %}
@@ -51,5 +65,4 @@
 {% endblock %}
 
 {% block javascript %}
-<script lang="javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}

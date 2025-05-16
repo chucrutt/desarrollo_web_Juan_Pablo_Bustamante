@@ -4,21 +4,21 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/actividadesStyle.css') }}">
 {% endblock %}
 
-{% block head %}{% endblock %}
-
 {% block body %}
 <div class="contenido">
     <div class="actividades">
         <table>
             <caption>Todas las actividades</caption>
             <thead>
-                <th>Inicio</th>
-                <th>Término</th>
-                <th>Comuna</th>
-                <th>Sector</th>
-                <th>Tema</th>
-                <th>Nombre Organizador</th>
-                <th>Total Fotos</th>
+                <tr>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th>Comuna</th>
+                    <th>Sector</th>
+                    <th>Tema</th>
+                    <th>Nombre Organizador</th>
+                    <th>Total Fotos</th>
+                </tr>
             </thead>
             <tbody>
                 {% for actividad in actividades %}
@@ -32,7 +32,7 @@
                                 {{ tema.tema }}{% if tema.tema == 'otro' %} ({{ tema.glosa_otro }}){% endif %}<br>
                             {% endfor %}
                         </td>
-                        <td>{{ actividad.nombre}}</td>
+                        <td>{{ actividad.nombre }}</td>
                         <td>
                             {% if actividad.fotos %}
                                 {% for foto in actividad.fotos %}
@@ -48,8 +48,27 @@
         </table>
     </div>
 </div>
+<div class="paginacion">
+    {% if page > 1 %}
+        <a href="{{ url_for('actividades', page=page-1) }}">« Anterior</a>
+    {% else %}
+        <span class="disabled">« Anterior</span>
+    {% endif %}
+
+    <span>Página {{ page }} de {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+        <a href="{{ url_for('actividades', page=page+1) }}">Siguiente »</a>
+    {% else %}
+        <span class="disabled">Siguiente »</span>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+
 {% endblock %}
 
 {% block javascript %}
-<script lang="javascript" src="{{ url_for('static', filename='js/actividadScript.js') }}"></script>
+<script src="{{ url_for('static', filename='js/actividadScript.js') }}"></script>
 {% endblock %}

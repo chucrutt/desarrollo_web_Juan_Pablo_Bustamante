@@ -56,3 +56,31 @@ caption {
     border-radius: 5px;
     margin: 5px 0;
 }
+
+/* === Paginación === */
+
+.paginacion {
+  max-width: 1000px;
+  margin: 10px auto 40px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.paginacion a {
+  color: #007BFF;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.paginacion a:hover {
+  text-decoration: underline;
+}
+
+.paginacion .disabled {
+  color: #999;
+  margin: 0 10px;
+  cursor: default;
+  pointer-events: none;
+}

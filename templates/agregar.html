@@ -53,37 +53,37 @@
             <h4>Contactar por:</h4>
 
             <label for="whatsapp">Whatsapp</label>
-            <input type="checkbox" name="contacto" value="whatsapp" class="contact-checkbox"><br>
+            <input type="checkbox" id="whatsapp" name="contacto" value="whatsapp" class="contact-checkbox"><br>
             <div class="contact-input" id="input-whatsapp" style="display:none;">
                 <input type="text" name="whatsapp_contact" placeholder="Contacto Whatsapp" minlength="4" maxlength="50">
             </div>
             
             <label for="telegram">Telegram</label>
-            <input type="checkbox" name="telegram" value="telegram" class="contact-checkbox"><br>
+            <input type="checkbox" id="telegram" name="telegram" value="telegram" class="contact-checkbox"><br>
             <div class="contact-input" id="input-telegram" style="display:none;">
                 <input type="text" name="telegram_contact" placeholder="Contacto Telegram" minlength="4" maxlength="50">
             </div>
 
             <label for="x">X</label>
-            <input type="checkbox" name="x" value="x" class="contact-checkbox"><br>
+            <input type="checkbox" id="x" name="x" value="x" class="contact-checkbox"><br>
             <div class="contact-input" id="input-x" style="display:none;">
                 <input type="text" name="x_contact" placeholder="Contacto X" minlength="4" maxlength="50">
             </div>
 
             <label for="instagram">Instagram</label>
-            <input type="checkbox" name="instagram" value="instagram" class="contact-checkbox"><br>
+            <input type="checkbox" id="instagram" name="instagram" value="instagram" class="contact-checkbox"><br>
             <div class="contact-input" id="input-instagram" style="display:none;">
                 <input type="text" name="instagram_contact" placeholder="Contacto Instagram" minlength="4" maxlength="50">
             </div>
 
             <label for="tiktok">TikTok</label>
-            <input type="checkbox" name="tiktok" value="tiktok" class="contact-checkbox"><br>
+            <input type="checkbox" id="tiktok" name="tiktok" value="tiktok" class="contact-checkbox"><br>
             <div class="contact-input" id="input-tiktok" style="display:none;">
                 <input type="text" name="tiktok_contact" placeholder="Contacto TikTok" minlength="4" maxlength="50">
             </div>
 
             <label for="otro">Otro</label>
-            <input type="checkbox" name="otro" value="otro" class="contact-checkbox"><br>
+            <input type="checkbox" id="otro" name="otro" value="otro" class="contact-checkbox"><br>
             <div class="contact-input" id="input-otro" style="display:none;">
                 <input type="text" name="otro_contact" placeholder="Contacto" minlength="4" maxlength="50">
             </div>
@@ -99,7 +99,7 @@
         <input type="datetime-local" id="fecha-termino" name="fecha-termino">
 
         <label for="descripcion">Descripción</label>
-        <textarea name="descripcion" rows="10" cols="50"></textarea>
+        <textarea id="descripcion" name="descripcion" rows="10" cols="50"></textarea>
 
         <label>Tema</label>
         <div class="temas-checkboxes">
@@ -122,7 +122,7 @@
 
         <label for="files">Subir imagen (máx 5)</label>
         <div id="file-inputs">
-            <input type="file" name="files" class="file-input" accept="image/*" required>
+            <input type="file" id="files" name="files" class="file-input" accept="image/*" required>
         </div>
         <button type="button" id="add-file-btn">Agregar otra imagen</button>
 
