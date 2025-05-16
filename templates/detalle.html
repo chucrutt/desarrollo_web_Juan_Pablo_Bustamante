@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="contenido">
+    <h2>Detalles de la Actividad</h2>
+    <ul>
+        <li><strong>Nombre:</strong> {{ actividad.nombre }}</li>
+        <li><strong>Email:</strong> {{ actividad.email }}</li>
+        <li><strong>Teléfono:</strong> {{ actividad.celular }}</li>
+        <li><strong>Comuna:</strong> {{ actividad.comuna.nombre }}</li>
+        <li><strong>Sector:</strong> {{ actividad.sector }}</li>
+        <li><strong>Inicio:</strong> {{ actividad.dia_hora_inicio }}</li>
+        <li><strong>Término:</strong> {{ actividad.dia_hora_termino }}</li>
+        <li><strong>Descripción:</strong> {{ actividad.descripcion }}</li>
+        <li><strong>Temas:</strong>
+            <ul>
+                {% for tema in actividad.temas %}
+                    <li>{{ tema.tema }}{% if tema.tema == 'otro' %} ({{ tema.glosa_otro }}){% endif %}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><strong>Fotos:</strong><br>
+            {% for foto in actividad.fotos %}
+                <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" width="320" height="240" style="margin: 5px;">
+            {% endfor %}
+        </li>
+    </ul>
+
+    <a href="{{ url_for('actividades') }}"><button>Volver al listado</button></a>
+    <a href="{{ url_for('index') }}"><button>Volver a la portada</button></a>
+</div>
+{% endblock %}

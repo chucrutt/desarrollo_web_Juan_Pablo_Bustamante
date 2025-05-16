@@ -1,1 +1,55 @@
 {% extends 'base.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/actividadesStyle.css') }}">
+{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+<div class="contenido">
+    <div class="actividades">
+        <table>
+            <caption>Todas las actividades</caption>
+            <thead>
+                <th>Inicio</th>
+                <th>Término</th>
+                <th>Comuna</th>
+                <th>Sector</th>
+                <th>Tema</th>
+                <th>Nombre Organizador</th>
+                <th>Total Fotos</th>
+            </thead>
+            <tbody>
+                {% for actividad in actividades %}
+                    <tr class="actividad-fila" data-id="{{ actividad.id }}" style="cursor: pointer;">
+                        <td>{{ actividad.dia_hora_inicio }}</td>
+                        <td>{{ actividad.dia_hora_termino }}</td>
+                        <td>{{ actividad.comuna.nombre }}</td>
+                        <td>{{ actividad.sector }}</td>
+                        <td>
+                            {% for tema in actividad.temas %}
+                                {{ tema.tema }}{% if tema.tema == 'otro' %} ({{ tema.glosa_otro }}){% endif %}<br>
+                            {% endfor %}
+                        </td>
+                        <td>{{ actividad.nombre}}</td>
+                        <td>
+                            {% if actividad.fotos %}
+                                {% for foto in actividad.fotos %}
+                                    <img class="foto-actividad" src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="{{ foto.nombre_archivo }}">
+                                {% endfor %}
+                            {% else %}
+                                Sin foto
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script lang="javascript" src="{{ url_for('static', filename='js/actividadScript.js') }}"></script>
+{% endblock %}

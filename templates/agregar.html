@@ -8,25 +8,26 @@
 
 {% block body %}
 <div class="main-container">
-    <form name="myForm" method="post" enctype="multipart/form-data">
-        <div id="val-box" hidden>
-            <h2 id="val-msg"></h2>
-            <ul id="val-list"></ul>
+    {% if errores %}
+        <div class="error-message">
+            {{ errores }}
         </div>
+    {% endif %}
+    <form name="myForm" method="post" enctype="multipart/form-data">
         <h2>Informa de una nueva actividad</h2>
 
         <h3>¿Dónde?</h3>
 
-        <label for="region">Región</label>
-        <select name="region_id" id="select-region" required>
+        <label for="select-region">Región</label>
+        <select name="select-region" id="select-region" required>
             <option value="">Selecciona una región</option>
             {% for region in regiones %}
                 <option value="{{ region.id }}">{{ region.nombre }}</option>
             {% endfor %}
         </select>
 
-        <label for="comuna">Comuna</label>
-        <select name="comuna_id" id="select-comuna" required>
+        <label for="select-comuna">Comuna</label>
+        <select name="select-comuna" id="select-comuna" required>
             <option value="">Selecciona una comuna</option>
             {% for comuna in comunas %}
                 <option value="{{ comuna.id }}" data-region-id="{{ comuna.region_id }}">{{ comuna.nombre }}</option>
@@ -92,33 +93,45 @@
         <h3>¿Cuándo y de qué trata?</h3>
 
         <label for="fecha-inicio">Día y hora de inicio</label>
-        <input type="datetime-local" id="fecha-inicio" name="fecha-inicio" value="2018-06-12T19:30" required>
+        <input type="datetime-local" id="fecha-inicio" name="fecha-inicio" required>
 
         <label for="fecha-termino">Día y hora de termino</label>
-        <input type="datetime-local" id="fecha-termino" name="fecha-termino" value="2018-06-12T19:30">
+        <input type="datetime-local" id="fecha-termino" name="fecha-termino">
 
         <label for="descripcion">Descripción</label>
         <textarea name="descripcion" rows="10" cols="50"></textarea>
 
-        <label for="tema">Tema</label>
-        <select name="select-tema" id="select-tema" required>
-            <option value="">-- Selecciona un tema --</option>
-            <option value="musica">Música</option>
-            <option value="deporte">Deporte</option>
-            <option value="ciencias">Ciencias</option>
-            <option value="religion">Religión</option>
-            <option value="politica">Política</option>
-            <option value="tecnologia">Tecnología</option>
-            <option value="juegos">Juegos</option>
-            <option value="baile">Baile</option>
-            <option value="comida">Comida</option>
-            <option value="otro">Otro</option>
-        </select>
+        <label>Tema</label>
+        <div class="temas-checkboxes">
+            <label><input type="checkbox" name="tema" value="musica"> Música</label>
+            <label><input type="checkbox" name="tema" value="deporte"> Deporte</label>
+            <label><input type="checkbox" name="tema" value="ciencias"> Ciencias</label>
+            <label><input type="checkbox" name="tema" value="religion"> Religión</label>
+            <label><input type="checkbox" name="tema" value="politica"> Política</label>
+            <label><input type="checkbox" name="tema" value="tecnologia"> Tecnología</label>
+            <label><input type="checkbox" name="tema" value="juegos"> Juegos</label>
+            <label><input type="checkbox" name="tema" value="baile"> Baile</label>
+            <label><input type="checkbox" name="tema" value="comida"> Comida</label>
+            <label><input type="checkbox" name="tema" value="otro" id="tema-otro"> Otro</label>
+        </div>
 
-        <label for="files">Subir imagen</label>
-        <input type="file" name="files" id="files" multiple accept="image/*,.pdf" required>
+        <div id="otro-tema-container" style="display: none;">
+            <label for="otro-tema">Especifica el tema</label>
+            <input type="text" name="otro-tema" id="otro-tema" placeholder="Ingresa el tema" minlength="3" maxlength="15">
+        </div>
 
-        <button id="submit-btn" type="button">Enviar</button>
+        <label for="files">Subir imagen (máx 5)</label>
+        <div id="file-inputs">
+            <input type="file" name="files" class="file-input" accept="image/*" required>
+        </div>
+        <button type="button" id="add-file-btn">Agregar otra imagen</button>
+
+        <button id="submit-btn" type="button">Agregar esta actividad</button>
+
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
         
     </form>
 </div>

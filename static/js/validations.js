@@ -1,50 +1,29 @@
 const validateName = (name) => {
     if (!name) return false;
-    let lengthValid = name.trim().length >= 4;
-
-    return lengthValid;
+    if (name.length >= 200) return false;
+    return true;
 };
 
 const validateEmail = (email) => {
     if (!email) return false;
-    let lengthValid = email.length > 15;
-
-    // validamos el formato
+    let lengthValid = email.length <= 100;
     let re = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     let formatValid = re.test(email);
-
-    // devolvemos la lógica AND de las validaciones.
     return lengthValid && formatValid;
 };
 
 const validatePhoneNumber = (phoneNumber) => {
-    // validación de longitud
     let lengthValid = phoneNumber.length >= 8;
-    // validación de formato
     let re = /^\+\d{3}\.\d{8}$/;
     let formatValid = re.test(phoneNumber);
-
-    // devolvemos la lógica AND de las validaciones.
     return lengthValid && formatValid;
 };
 
 const validateFiles = (files) => {
-    if (!files) return false;
+    if (!files || files.length === 0) return false;
+    let lengthValid = 1 <= files.length && files.length <= 5;
 
-    // validación del número de archivos
-    let lengthValid = 1 <= files.length && files.length <= 3;
-
-    // validación del tipo de archivo
-    let typeValid = true;
-
-    for (const file of files) {
-        // el tipo de archivo debe ser "image/<foo>" o "application/pdf"
-        let fileFamily = file.type.split("/")[0];
-        typeValid &&= fileFamily == "image" || file.type == "application/pdf";
-    }
-
-    // devolvemos la lógica AND de las validaciones.
-    return lengthValid && typeValid;
+    return lengthValid;
 };
 
 const validateSelect = (select) => {
@@ -57,15 +36,53 @@ const validateCheckboxes = () => {
     return checkedCount <= 5;
 };
 
+const validateDates = (fechaInicioStr, fechaTerminoStr) => {
+    if (!fechaInicioStr) return false;
+    if (!fechaTerminoStr) return true; 
+
+    if (fechaInicioStr && fechaTerminoStr) {
+        let fechaInicio = new Date(fechaInicioStr);
+        let fechaTermino = new Date(fechaTerminoStr);
+
+        if (fechaTermino < fechaInicio) {
+            return false
+        }
+    }
+    return true
+};
+
+const validateSector = (sector) => {
+    if (sector.length > 100) return false;
+    return true;
+}
+
+const validateTemasCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('input[name="tema"]:checked');
+    return checkboxes.length > 0;
+};
+
 const validateForm = () => {
     // obtener elementos del DOM usando el nombre del formulario.
     let myForm = document.forms["myForm"];
     let email = myForm["email"].value;
     let phoneNumber = myForm["phone"].value;
     let name = myForm["nombre"].value;
-    let files = myForm["files"].files;
     let region = myForm["select-region"].value;
     let comuna = myForm["select-comuna"].value;
+    let fechaInicioStr = myForm["fecha-inicio"].value;
+    let fechaTerminoStr = myForm["fecha-termino"].value;
+    let sector = myForm["sector"].value
+    let fileInputs = document.querySelectorAll('input[type="file"][name="files"]');
+    let files = [];
+    const otroTemaChecked = document.getElementById("tema-otro").checked;
+    let otroTema = myForm["otro-tema"].value;
+
+    fileInputs.forEach(input => {
+        for (let i = 0; i < input.files.length; i++) {
+            files.push(input.files[i]);
+        }
+    });
+
 
     // variables auxiliares de validación y función.
     let invalidInputs = [];
@@ -76,26 +93,38 @@ const validateForm = () => {
     };
 
     // lógica de validación
-    if (!validateName(name)) {
-        setInvalidInput("Nombre");
-    }
-    if (!validateEmail(email)) {
-        setInvalidInput("Email");
-    }
-    if (!validatePhoneNumber(phoneNumber)) {
-        setInvalidInput("Número");
-    }
-    if (!validateFiles(files)) {
-        setInvalidInput("Fotos");
-    }
     if (!validateSelect(region)) {
-        setInvalidInput("Region");
+        setInvalidInput("Region no seleccionada");
     }
     if (!validateSelect(comuna)) {
-        setInvalidInput("Comuna");
+        setInvalidInput("Comuna no seleccionada");
+    }
+    if (!validateSector(sector)) {
+        setInvalidInput("Sector invalido");
+    }
+    if (!validateName(name)) {
+        setInvalidInput("Nombre invalido");
+    }
+    if (!validateEmail(email)) {
+        setInvalidInput("Email invalido");
+    }
+    if (!validatePhoneNumber(phoneNumber)) {
+        setInvalidInput("Número invalido");
     }
     if (!validateCheckboxes()) {
         setInvalidInput("CheckBoxes (máx. 5)");
+    }
+    if (!validateDates(fechaInicioStr, fechaTerminoStr)) {
+        setInvalidInput("fecha de termino debe ser mayor a la fecha de inicio")
+    }
+    if (!validateTemasCheckboxes()) {
+        setInvalidInput("Debe seleccionar al menos 1 tema");
+    }
+    if (otroTemaChecked && (!otroTema || otroTema.length < 3 || otroTema.length > 15)) {
+        setInvalidInput("Debe especificar el tema si marcó 'Otro'");
+    }
+    if (!validateFiles(files)) {
+    setInvalidInput("Archivos inválidos (deben ser entre 1 y 5)");
     }
 
     // finalmente mostrar la validación
@@ -122,38 +151,51 @@ const validateForm = () => {
         // hacer visible el mensaje de validación
         validationBox.hidden = false;
     } else {
-        // Ocultar el formulario
-        myForm.style.display = "none";
-
-        // establecer mensaje de éxito
-        validationMessageElem.innerText = "¡Formulario válido! ¿Deseas enviarlo o volver?";
+        // establecer mensaje de confirmación
+        validationMessageElem.innerText = "¿Está seguro que desea agregar esta actividad?";
         validationListElem.textContent = "";
 
-        // aplicar estilos de éxito
-        validationBox.style.backgroundColor = "#ddffdd";
-        validationBox.style.borderLeftColor = "#4CAF50";
+        // aplicar estilos de confirmación
+        validationBox.style.backgroundColor = "#fff3cd";
+        validationBox.style.borderLeftColor = "#ff9800";
 
-        // Agregar botones para enviar el formulario o volver
-        let submitButton = document.createElement("button");
-        submitButton.innerText = "Enviar";
-        submitButton.style.marginRight = "10px";
-        submitButton.addEventListener("click", () => {
-            // myForm.submit();
-            // no tenemos un backend al cual enviarle los datos
+        // Botón "Sí, estoy seguro"
+        let confirmButton = document.createElement("button");
+        confirmButton.innerText = "Sí, estoy seguro";
+        confirmButton.style.marginRight = "10px";
+        confirmButton.addEventListener("click", () => {
+            validationMessageElem.innerText = "Hemos recibido su información, muchas gracias y suerte en su actividad.";
+            validationListElem.textContent = "";
+
+            // Cambiar estilos a éxito
+            validationBox.style.backgroundColor = "#ddffdd";
+            validationBox.style.borderLeftColor = "#4CAF50";
+
+            // submit formulario a flask
+            myForm.submit();
+
+            // Botón para volver a la portada
+            let backToHomeButton = document.createElement("button");
+            backToHomeButton.innerText = "Volver a la portada";
+            backToHomeButton.addEventListener("click", () => {
+                window.location.href = "/";
+            });
+
+            validationListElem.appendChild(backToHomeButton);
         });
 
-        let backButton = document.createElement("button");
-        backButton.innerText = "Volver";
-        backButton.addEventListener("click", () => {
-            // Mostrar el formulario nuevamente
+        // Botón "No, quiero volver"
+        let cancelButton = document.createElement("button");
+        cancelButton.innerText = "No, no estoy seguro, quiero volver al formulario";
+        cancelButton.addEventListener("click", () => {
             myForm.style.display = "block";
             validationBox.hidden = true;
         });
 
-        validationListElem.appendChild(submitButton);
-        validationListElem.appendChild(backButton);
+        validationListElem.appendChild(confirmButton);
+        validationListElem.appendChild(cancelButton);
 
-        // hacer visible el mensaje de validación
+        // Mostrar el cuadro
         validationBox.hidden = false;
     }
 };

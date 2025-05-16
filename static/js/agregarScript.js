@@ -33,3 +33,61 @@ checkboxes.forEach(checkbox => {
         }
     });
 });
+
+// Fecha y hora local
+window.addEventListener('DOMContentLoaded', () => {
+    const inputInicio = document.getElementById('fecha-inicio');
+    const inputTermino = document.getElementById('fecha-termino');
+
+    const now = new Date();
+
+    // Función para formatear a 'YYYY-MM-DDTHH:MM'
+    function formatDatetime(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    const inicioStr = formatDatetime(now);
+    inputInicio.value = inicioStr;
+
+    // Crear nueva fecha con 3 horas adicionales
+    const terminoDate = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const terminoStr = formatDatetime(terminoDate);
+    inputTermino.value = terminoStr;
+});
+
+// Otro tema
+document.addEventListener("DOMContentLoaded", () => {
+    const otroCheckbox = document.getElementById("tema-otro");
+    const otroTemaContainer = document.getElementById("otro-tema-container");
+
+    otroCheckbox.addEventListener("change", () => {
+        if (otroCheckbox.checked) {
+            otroTemaContainer.style.display = "block";
+        } else {
+            otroTemaContainer.style.display = "none";
+        }
+    });
+});
+
+// mas imagenes
+document.addEventListener("DOMContentLoaded", () => {
+    const fileInputsContainer = document.getElementById("file-inputs");
+    const addFileBtn = document.getElementById("add-file-btn");
+    const maxFiles = 5;
+
+    addFileBtn.addEventListener("click", () => {
+
+        const newInput = document.createElement("input");
+        newInput.type = "file";
+        newInput.name = "files";
+        newInput.classList.add("file-input");
+        newInput.accept = "image/*,.pdf";
+
+        fileInputsContainer.appendChild(newInput);
+    });
+});

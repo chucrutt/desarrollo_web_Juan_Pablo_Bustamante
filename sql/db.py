@@ -1,5 +1,10 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Enum
-from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship, joinedload
+from datetime import datetime
+import os
+from werkzeug.utils import secure_filename
+
+STATIC_UPLOADS_PATH = os.path.join("static", "uploads")
 
 DB_NAME = "tarea2"
 DB_USERNAME = "admin"
@@ -89,6 +94,27 @@ class ActividadTema(Base):
     actividad = relationship("Actividad", back_populates="temas")
 
 # --- Database Functions ---
+
+def get_ultimas_actividades():
+    session = SessionLocal()
+    actividades = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.temas),
+        joinedload(Actividad.fotos)
+    ).order_by(Actividad.id.desc()).limit(5).all()
+    session.close()
+    return actividades
+
+def get_actividades():
+    session = SessionLocal()
+    actividades = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.temas),
+        joinedload(Actividad.fotos)
+    ).order_by(Actividad.id.desc()).all()
+    session.close()
+    return actividades
+
 def get_regiones():
     session = SessionLocal()
     regiones = session.query(Region).order_by(Region.nombre).all()
@@ -100,6 +126,66 @@ def get_comunas():
     comunas = session.query(Comuna).order_by(Comuna.nombre).all()
     session.close()
     return comunas
+
+def create_actividad(nombre, email, celular, region, comuna_id, sector, temas, otro_tema, dia_hora_inicio, dia_hora_termino, archivos, descripcion):
+    session = SessionLocal()
+
+    actividad = Actividad(
+        comuna_id=int(comuna_id),
+        sector=sector,
+        nombre=nombre,
+        email=email,
+        celular=celular,
+        dia_hora_inicio=datetime.fromisoformat(dia_hora_inicio),
+        dia_hora_termino=datetime.fromisoformat(dia_hora_termino) if dia_hora_termino else None,
+        descripcion = descripcion.strip() if descripcion else None
+    )
+
+    session.add(actividad)
+    session.flush()  # Necesario para obtener actividad.id
+
+    for archivo in archivos:
+        if archivo.filename:
+            filename = secure_filename(archivo.filename)
+            ruta_local = os.path.join(STATIC_UPLOADS_PATH, filename)
+            archivo.save(ruta_local)
+
+            foto = Foto(
+                ruta_archivo=f"uploads/{filename}",  # ✅ Ruta relativa a static/
+                nombre_archivo=filename,
+                actividad_id=actividad.id
+            )
+            session.add(foto)
+
+    for tema in temas:
+        if tema == "otro":
+            actividad_tema = ActividadTema(
+                tema=tema,
+                glosa_otro=otro_tema,
+                actividad_id=actividad.id
+            )
+        else:
+            actividad_tema = ActividadTema(
+                tema=tema,
+                glosa_otro=None,
+                actividad_id=actividad.id
+            )
+        session.add(actividad_tema)
+
+    session.commit()
+    session.close()
+
+def detalle_actividad(id):
+    session = SessionLocal()
+    actividad = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.temas),
+        joinedload(Actividad.fotos),
+        joinedload(Actividad.contactos)
+    ).filter_by(id=id).first()
+    session.close()
+    return actividad
+
 
 # --- To create tables if not exist ---
 def init_db():
