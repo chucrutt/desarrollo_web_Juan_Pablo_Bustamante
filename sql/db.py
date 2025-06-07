@@ -59,6 +59,7 @@ class Actividad(Base):
     fotos = relationship("Foto", back_populates="actividad", cascade="all, delete")
     contactos = relationship("ContactarPor", back_populates="actividad", cascade="all, delete")
     temas = relationship("ActividadTema", back_populates="actividad", cascade="all, delete")
+    comentarios = relationship("Comentario", back_populates="actividad", cascade="all, delete")
 
 class Foto(Base):
     __tablename__ = 'foto'
@@ -92,6 +93,18 @@ class ActividadTema(Base):
     actividad_id = Column(Integer, ForeignKey('tarea2.actividad.id'), primary_key=True)
 
     actividad = relationship("Actividad", back_populates="temas")
+
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    __table_args__ = {'schema': 'tarea2'}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable=False)
+    fecha = Column(DateTime, nullable=False, default=datetime.now)
+    actividad_id = Column(Integer, ForeignKey('tarea2.actividad.id'), nullable=False)
+
+    actividad = relationship("Actividad", back_populates="comentarios")
 
 # --- Database Functions ---
 
@@ -196,7 +209,8 @@ def detalle_actividad(id):
         joinedload(Actividad.comuna),
         joinedload(Actividad.temas),
         joinedload(Actividad.fotos),
-        joinedload(Actividad.contactos)
+        joinedload(Actividad.contactos),
+        joinedload(Actividad.comentarios)
     ).filter_by(id=id).first()
     session.close()
     return actividad
@@ -217,6 +231,17 @@ def get_actividades_paginadas(page=1, per_page=5):
     total_pages = (total + per_page - 1) // per_page
     return actividades, total, page, total_pages
 
+def insertar_comentario(actividad_id, nombre, texto):
+    session = SessionLocal()
+    nuevo = Comentario(
+        actividad_id=actividad_id,
+        nombre=nombre,
+        texto=texto,
+        fecha=datetime.now()
+    )
+    session.add(nuevo)
+    session.commit()
+    session.close()
 
 # --- To create tables if not exist ---
 def init_db():

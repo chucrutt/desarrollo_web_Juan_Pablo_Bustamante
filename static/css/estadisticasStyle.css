@@ -1,12 +1,20 @@
-/* Estilos generales del contenedor */
-#graficos {
+/* Contenedor general de estadísticas */
+#graficos,
+#grafico-torta,
+#grafico-barras {
   max-width: 800px;
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   text-align: center;
+}
+
+/* Espaciado entre los gráficos */
+#grafico-torta,
+#grafico-barras {
+  margin-top: 40px;
 }
 
 /* Título principal */
@@ -16,18 +24,16 @@
   margin-bottom: 30px;
 }
 
-/* Estilo de las imágenes de los gráficos */
-#graficos img {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  display: block;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+/* Ajuste para los gráficos de Highcharts */
+#graficos,
+#grafico-torta,
+#grafico-barras {
+  min-height: 400px;
 }
 
-#graficos img:hover {
-  transform: scale(1.01);
+/* Elimina estilos de imagen que no aplican */
+#graficos img,
+#grafico-torta img,
+#grafico-barras img {
+  display: none;
 }

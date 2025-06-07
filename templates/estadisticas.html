@@ -4,15 +4,15 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/estadisticasStyle.css') }}">
 {% endblock %}
 
-{% block head %}{% endblock %}
-
 {% block body %}
-<div id="graficos">
-    <h1>Estadísticas de Actividades</h1>
-    <img src="{{ url_for('static', filename='imagenes/graficos/lineas_actividades_dia.png') }}" alt="Gráfico de líneas de actividades por día" style="width:100%; max-width:600px;">
-    <img src="{{ url_for('static', filename='imagenes/graficos/torta_actividades_tipo.png') }}" alt="Gráfico de torta de actividades por tipo" style="width:100%; max-width:600px;">
-    <img src="{{ url_for('static', filename='imagenes/graficos/barras_actividades_mes.png') }}" alt="Gráfico de barras por mes y horario" style="width:100%; max-width:600px;">
+<div>
+    <div id="graficos"></div>
+    <div id="grafico-torta" style="margin-top: 40px;"></div>
+    <div id="grafico-barras" style="margin-top: 40px;"></div>
 </div>
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{ url_for('static', filename='js/estadisticasScript.js') }}"></script>
+{% endblock %}
